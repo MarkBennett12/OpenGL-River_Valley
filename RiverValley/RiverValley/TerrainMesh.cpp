@@ -5,30 +5,30 @@
  *      Author: mark
  */
 #include <iostream>
-#include "Mesh.h"
+#include "TerrainMesh.h"
 
-namespace Display
+namespace Geometry
 {
 
-Mesh::Mesh():
+TerrainMesh::TerrainMesh():
 	vertexSize(3)
 {
 	// TODO Auto-generated constructor stub
 }
 
-Mesh::Mesh(int size):
+TerrainMesh::TerrainMesh(int size):
 	vertexSize(3)
 {
 	// TODO Auto-generated constructor stub
 	vertices.reserve(size * vertexSize);
 }
 
-Mesh::~Mesh()
+TerrainMesh::~TerrainMesh()
 {
 	// TODO Auto-generated destructor stub
 }
 
-int Mesh::GetVertexIndex(int verticesIndex)
+int TerrainMesh::GetVertexIndex(int verticesIndex)
 {
 	if(verticesIndex > 0)
 		return verticesIndex / vertexSize;
@@ -36,32 +36,32 @@ int Mesh::GetVertexIndex(int verticesIndex)
 		return 0;
 }
 
-int Mesh::GetVertexSize()
+int TerrainMesh::GetVertexSize()
 {
 	return vertexSize;
 }
 
-int Mesh::GetVertexCount()
+int TerrainMesh::GetVertexCount()
 {
 	return vertices.size();
 }
 
-int Mesh::GetIndexCount()
+int TerrainMesh::GetIndexCount()
 {
 	return indices.size();
 }
 
-GLfloat* Mesh::GetVertices()
+GLfloat* TerrainMesh::GetVertices()
 {
 	return vertices.data();
 }
 
-GLubyte* Mesh::GetIndices()
+GLubyte* TerrainMesh::GetIndices()
 {
 	return indices.data();
 }
 
-int Mesh::FindExistingVertex(GLfloat x, GLfloat y, GLfloat z)
+int TerrainMesh::GetVertexIndex(GLfloat x, GLfloat y, GLfloat z)
 {
 	for(std::vector<GLfloat>::iterator i = vertices.begin(); i != vertices.end(); i+=vertexSize)
 		if(i + 2 != vertices.end() && *i == x && *(i + 1) == y && *(i + 2) == z)
@@ -69,10 +69,10 @@ int Mesh::FindExistingVertex(GLfloat x, GLfloat y, GLfloat z)
 	return -1;
 }
 
-void Mesh::AddVertex(GLfloat x, GLfloat y, GLfloat z)
+void TerrainMesh::AddVertex(GLfloat x, GLfloat y, GLfloat z)
 {
 	//std::cout << "x = " << x << ", y = " << y << ", z = " << z << std::endl;
-	int vertexIndex = FindExistingVertex(x, y, z);
+	int vertexIndex = GetVertexIndex(x, y, z);
 	//std::cout << "vertex index = " << vertexIndex << std::endl << std::endl;
 	if(vertexIndex != -1)
 		indices.push_back(vertexIndex);
@@ -87,7 +87,7 @@ void Mesh::AddVertex(GLfloat x, GLfloat y, GLfloat z)
 	//std::cout << "vertices size = " << vertices.size() << std::endl;
 }
 
-void Mesh::AddQuad(GLfloat x1, GLfloat y1, GLfloat z1, GLfloat x2, GLfloat y2, GLfloat z2, GLfloat x3, GLfloat y3, GLfloat z3, GLfloat x4, GLfloat y4, GLfloat z4)
+void TerrainMesh::AddQuad(GLfloat x1, GLfloat y1, GLfloat z1, GLfloat x2, GLfloat y2, GLfloat z2, GLfloat x3, GLfloat y3, GLfloat z3, GLfloat x4, GLfloat y4, GLfloat z4)
 {
 	// Triangle 1
 	AddVertex(x1, y1, z1);
@@ -100,14 +100,14 @@ void Mesh::AddQuad(GLfloat x1, GLfloat y1, GLfloat z1, GLfloat x2, GLfloat y2, G
 	AddVertex(x4, y4, z4);
 }
 
-void Mesh::SetYVal(const GLfloat x, const GLfloat z, GLfloat newY)
+void TerrainMesh::SetHeightAt(const GLfloat x, const GLfloat z, GLfloat newY)
 {
 		for(std::vector<GLfloat>::iterator i = vertices.begin(); i != vertices.end(); i+=vertexSize)
 		if(i + 2 != vertices.end() && *i == x && *(i + 2) == z)
 			*(i + 1) = newY;
 }
 
-GLfloat Mesh::GetYVal(const GLfloat x, const GLfloat z)
+GLfloat TerrainMesh::GetHeightAt(const GLfloat x, const GLfloat z)
 {
 	for(std::vector<GLfloat>::iterator i = vertices.begin(); i != vertices.end(); i+=vertexSize)
 	if(i + 2 != vertices.end() && *i == x && *(i + 2) == z)
@@ -115,7 +115,7 @@ GLfloat Mesh::GetYVal(const GLfloat x, const GLfloat z)
 	return 0.0;
 }
 
-void Mesh::PrintMesh()
+void TerrainMesh::PrintMesh()
 {
 	/*
 	std::cout << "vertices size = " << vertices.size() << std::endl;

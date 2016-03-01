@@ -12,10 +12,10 @@
 #ifndef MESH_H_
 #define MESH_H_
 
-namespace Display
+namespace Geometry
 {
 
-class Mesh
+class TerrainMesh
 {
 private:
 	std::vector<GLfloat> vertices;
@@ -23,12 +23,12 @@ private:
 	const int vertexSize;
 
 	int GetVertexIndex(int verticesIndex);
-	int FindExistingVertex(GLfloat x, GLfloat y, GLfloat z);
+	int GetVertexIndex(GLfloat x, GLfloat y, GLfloat z);
 
 public:
-	Mesh();
-	Mesh(int size);
-	virtual ~Mesh();
+	TerrainMesh();
+	TerrainMesh(int size);
+	virtual ~TerrainMesh();
 	int GetVertexSize();
 	GLfloat* GetVertices();
 	GLubyte* GetIndices();
@@ -36,8 +36,8 @@ public:
 	int GetIndexCount();
 	void AddVertex(GLfloat x, GLfloat y, GLfloat z);
 	void AddQuad(GLfloat x1, GLfloat y1, GLfloat z1, GLfloat x2, GLfloat y2, GLfloat z2, GLfloat x3, GLfloat y3, GLfloat z3, GLfloat x4, GLfloat y4, GLfloat z4);
-	void SetYVal(const GLfloat x, const GLfloat z, GLfloat newY);
-	GLfloat GetYVal(const GLfloat x, const GLfloat z);
+	void SetHeightAt(const GLfloat x, const GLfloat z, GLfloat newY);
+	GLfloat GetHeightAt(const GLfloat x, const GLfloat z);
 	void PrintMesh();
 };
 

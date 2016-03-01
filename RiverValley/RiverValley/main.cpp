@@ -12,11 +12,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
-#include "Mesh.h"
+#include "TerrainMesh.h"
 #include "DiamondSquare.h"
 
 using namespace std;
-using namespace Display;
+using namespace Geometry;
 using namespace Generators;
 
 int windowPosX = 100;
@@ -33,9 +33,9 @@ GLfloat cameraY;
 GLfloat cameraZ;
 
 int terrainSize = 8;
-Mesh terrain(terrainSize * terrainSize);
+TerrainMesh terrain(terrainSize * terrainSize);
 Parameters terrainParams;
-DiamondSquare generator(&terrain, &terrainParams, terrainSize, 4);
+DiamondSquare generator(&terrain, &terrainParams, terrainSize);
 
 // Initialise OpenGL
 void init(const int posX, const int posY, const int width, const int height)

@@ -6,7 +6,7 @@
  */
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real.hpp>
-#include "Mesh.h"
+#include "TerrainMesh.h"
 
 #ifndef TERRAINGENERATOR_H_
 #define TERRAINGENERATOR_H_
@@ -26,7 +26,7 @@ class TerrainGenerator
 protected:
 	int terrainSize;
 	Parameters* params;
-	Display::Mesh* mesh;
+	Geometry::TerrainMesh* mesh;
 
 public:
 	TerrainGenerator();

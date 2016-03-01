@@ -26,18 +26,17 @@ struct DSParameters:Parameters
 class DiamondSquare: public Generators::TerrainGenerator
 {
 private:
-	int numIterations;
-
+	// Boost library random number generator
 	boost::mt19937 rng;
-	boost::normal_distribution<> nd;
+	boost::normal_distribution<> normalDistribution;
 	boost::variate_generator <boost::mt19937&, boost::normal_distribution<> > generator;
 
-	double Displace(double mod);
-	void SquareStep(int x, int z, int size, double r);
-	void DiamondStep(int x, int z, int size, double r);
+	double Displace(double modifier);
+	void SquareStep(int x, int z, int size, double roughness);
+	void DiamondStep(int x, int z, int size, double roughness);
 
 public:
-	DiamondSquare(Display::Mesh* mesh, Parameters* params, int size, int iterations);
+	DiamondSquare(Geometry::TerrainMesh* mesh, Parameters* params, int size);
 	virtual ~DiamondSquare();
 	void Init();
 	void Generate();
